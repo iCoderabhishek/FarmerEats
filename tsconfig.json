@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "types": ["jest"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@/flows/*": ["src/flows/*"],
+      "@/modules/*": ["src/modules/*"],
+      "@/app/*": ["src/app/*"]
     }
   },
   "include": ["src"],
