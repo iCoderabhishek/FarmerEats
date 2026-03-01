@@ -1,11 +1,14 @@
-import { BusinessHour } from '@/core/types/user';
+export type BusinessHour = {
+  day: string;
+  fromTime: string;
+  toTime: string;
+};
 
-export interface SignupState {
-  step: number;
-  fullName: string;
+export type User = {
+  id: string;
   email: string;
+  fullName: string;
   phoneNumber: string;
-  password: string;
   businessName: string;
   informalName: string;
   streetAddress: string;
@@ -13,6 +16,4 @@ export interface SignupState {
   zipcode: string;
   mediaUri: string | null;
   businessHours: BusinessHour[];
-  loading: boolean;
-  error: string | null;
-}
+};
