@@ -7,17 +7,21 @@ import AppText from '../atoms/text';
 
 interface AuthLayoutProps {
   header: string;
+  subHeader?: React.ReactNode;
   descText?: string;
   linkText?: string;
   onLinkPress?: () => void;
+  footer?: React.ReactNode;
   children: React.ReactNode;
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({
   header,
+  subHeader,
   descText,
   linkText,
   onLinkPress,
+  footer,
   children,
 }) => {
   const insets = useSafeAreaInsets();
@@ -34,7 +38,12 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         showsVerticalScrollIndicator={false}>
         <AppText style={styles.appTitle}>FarmerEats</AppText>
 
-        <AppText style={styles.header}>{header}</AppText>
+        {subHeader && <View style={styles.subHeader}>{subHeader}</View>}
+
+        <AppText
+          style={[styles.header, subHeader ? styles.headerWithSub : null]}>
+          {header}
+        </AppText>
 
         {(descText || linkText) && (
           <View style={styles.descRow}>
@@ -51,6 +60,12 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
 
         <View style={styles.formArea}>{children}</View>
       </ScrollView>
+
+      {footer && (
+        <View style={[styles.footer, { bottom: 54 }]}>
+          {footer}
+        </View>
+      )}
     </ScreenWrapper>
   );
 };
@@ -92,8 +107,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.secondary,
   },
+  subHeader: {
+    marginTop: 40,
+  },
+  headerWithSub: {
+    marginTop: 4,
+  },
   formArea: {
     marginTop: 40,
+  },
+  footer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 30,
   },
 });
 

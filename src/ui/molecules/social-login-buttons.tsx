@@ -7,20 +7,38 @@ import AppleIcon from '@/assets/images/apple.svg';
 import FacebookIcon from '@/assets/images/facebook.svg';
 
 interface SocialLoginButtonsProps {
+  label?: string;
+  labelPosition?: 'top' | 'bottom';
   onGooglePress?: () => void;
   onApplePress?: () => void;
   onFacebookPress?: () => void;
 }
 
 const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
+  label = 'or login with',
+  labelPosition = 'top',
   onGooglePress,
   onApplePress,
   onFacebookPress,
 }) => {
+  const labelEl = (
+    <AppText
+      style={[
+        styles.orText,
+        labelPosition === 'top' ? styles.labelTop : styles.labelBottom,
+      ]}>
+      {label}
+    </AppText>
+  );
+
   return (
     <View style={styles.container}>
-      <AppText style={styles.orText}>or login with</AppText>
-      <View style={styles.buttonRow}>
+      {labelPosition === 'top' && labelEl}
+      <View
+        style={[
+          styles.buttonRow,
+          labelPosition === 'bottom' && styles.buttonRowFirst,
+        ]}>
         <TouchableOpacity
           style={styles.socialButton}
           onPress={onGooglePress}
@@ -40,6 +58,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
           <FacebookIcon width={24} height={24} />
         </TouchableOpacity>
       </View>
+      {labelPosition === 'bottom' && labelEl}
     </View>
   );
 };
@@ -52,12 +71,20 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.medium,
     fontSize: 10,
     color: 'rgba(0, 0, 0, 0.3)',
+  },
+  labelTop: {
     marginTop: 32,
+  },
+  labelBottom: {
+    marginTop: 16,
   },
   buttonRow: {
     flexDirection: 'row',
     gap: 12,
     marginTop: 32,
+  },
+  buttonRowFirst: {
+    marginTop: 0,
   },
   socialButton: {
     width: 96,
