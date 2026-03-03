@@ -25,22 +25,17 @@ const Button: React.FC<ButtonProps> = ({
       style={[styles.container, { backgroundColor }, style]}
       activeOpacity={0.8}
       {...props}>
-      <AppText
-        style={[styles.text, { color: textColor }]}>
-        {title}
-      </AppText>
+      <AppText style={[styles.text, { color: textColor }]}>{title}</AppText>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: 236,
-    height: 60,
+    height: 52,
     borderRadius: 117,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
   },
   text: {
     fontFamily: Fonts.medium,

@@ -44,6 +44,9 @@ export const styles = StyleSheet.create({
   },
   joinButton: {
     marginTop: 60,
+    width: 236,
+    height: 60,
+    alignSelf: 'center',
   },
   loginContainer: {
     marginTop: 16,
