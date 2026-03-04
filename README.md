@@ -1,97 +1,68 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# FarmerEats Mobile Application
 
-# Getting Started
+A React Native mobile application designed to connect consumers with fresh, local farming produce through a seamless user interface.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Core Features
+- User Authentication and Authorization
+- Multi-step Registration and Signup Flow
+- Local Data Persistence for Sessions
+- Native Cross-Platform Interactions
 
-## Step 1: Start Metro
+## Architecture & Technology Stack
+The application follows a modular, feature-based architecture to promote scalability, maintainability, and code separation.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **React Native (v0.84)**: Used for its ability to build native Android and iOS applications using a single JavaScript/TypeScript codebase.
+- **Redux Toolkit**: Chosen for centralized and predictable global state management. It handles complex data flows efficiently without the boilerplate of legacy Redux or the performance pitfalls of large-scale Context API usage.
+- **React Navigation (v7)**: Implemented to provide a high-performance, native-feeling navigation experience across navigation flows and stacks.
+- **Axios**: Provides a streamlined approach for handling API requests with built-in interceptors.
+- **Zod**: Used for strict schema validation to ensure data integrity in forms and network responses.
+- **AsyncStorage**: Facilitates lightweight, persistent key-value local storage.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Project Structure
+The `src` directory is organized into distinct domain areas:
+- `src/app/`: Application entry point and top-level configurations.
+- `src/assets/`: Static resources like fonts, icons, and SVGs.
+- `src/core/`: Global utilities, API instances, and centralized configurations.
+- `src/flows/`: Navigation stacks and routing definitions.
+- `src/modules/`: Feature-isolated domains (e.g., `auth`, `signup`) containing their distinct screens and logic.
+- `src/ui/`: Reusable, atomic UI components and styling definitions.
 
-```sh
-# Using npm
-npm start
+## Installation Guide
 
-# OR using Yarn
-yarn start
-```
+### Prerequisites
+- Node.js (>= 20.19.4)
+- React Native environment configured for targeting Android and/or iOS
 
-## Step 2: Build and run your app
+### Setup Steps
+1. Install node dependencies:
+   ```bash
+   npm install
+   ```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+2. Install iOS CocoaPods dependencies (macOS only):
+   ```bash
+   cd ios && bundle install && bundle exec pod install && cd ..
+   ```
 
-### Android
+## Running the Application
 
-```sh
-# Using npm
-npm run android
+1. Start the Metro Bundler:
+   ```bash
+   npm start
+   ```
 
-# OR using Yarn
-yarn android
-```
+2. Run on Android:
+   ```bash
+   npm run android
+   ```
 
-### iOS
+3. Run on iOS:
+   ```bash
+   npm run ios
+   ```
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Development Scripts
+- `npm run lint`: Analyzes the codebase and automatically fixes standard linting issues.
+- `npm run test`: Runs the automated Jest test suite.
+- `npm run type-check`: Validates TypeScript strict typings without emitting build files.
+- `npm run doctor`: Troubleshoots environment setup via `react-native doctor`.

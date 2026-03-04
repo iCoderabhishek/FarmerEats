@@ -7,7 +7,8 @@ import Button from '@/ui/atoms/button';
 import AppText from '@/ui/atoms/text';
 import SocialLoginButtons from '@/ui/molecules/social-login-buttons';
 import StepIndicator from '../components/step-indicator';
-import { Colors, Fonts } from '@/core/constants/theme';
+import { Colors, Fonts, Spacing } from '@/core/constants/theme';
+import { GlobalStrings } from '@/core/constants/strings';
 import PersonaIcon from '@/assets/images/persona.svg';
 import EmailIcon from '@/assets/images/email.svg';
 import PhoneIcon from '@/assets/images/phone.svg';
@@ -32,33 +33,33 @@ const SignupStep1Screen = () => {
   return (
     <AuthLayout
       subHeader={<StepIndicator currentStep={1} totalSteps={4} />}
-      header="Welcome!"
+      header={GlobalStrings.welcome}
       footer={
         <>
           <TouchableOpacity onPress={handleLogin}>
-            <AppText style={styles.loginLink}>Login</AppText>
+            <AppText style={styles.loginLink}>{GlobalStrings.login}</AppText>
           </TouchableOpacity>
           <Button
-            title="Continue"
+            title={GlobalStrings.continue}
             backgroundColor={Colors.secondary}
             onPress={handleContinue}
             style={styles.continueButton}
           />
         </>
       }>
-      <SocialLoginButtons label="or signup with" labelPosition="bottom" />
+      <SocialLoginButtons label={GlobalStrings.orSignupWith} labelPosition="bottom" />
 
       <View style={styles.inputGroup}>
         <FormInput
           icon={PersonaIcon}
-          placeholder="Full Name"
+          placeholder={GlobalStrings.fullName}
           autoCapitalize="words"
           value={fullName}
           onChangeText={setFullName}
         />
         <FormInput
           icon={EmailIcon}
-          placeholder="Email Address"
+          placeholder={GlobalStrings.emailAddress}
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
@@ -66,21 +67,21 @@ const SignupStep1Screen = () => {
         />
         <FormInput
           icon={PhoneIcon}
-          placeholder="Phone Number"
+          placeholder={GlobalStrings.phoneNumber}
           keyboardType="phone-pad"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
         />
         <FormInput
           icon={LockIcon}
-          placeholder="Password"
+          placeholder={GlobalStrings.password}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
         <FormInput
           icon={LockIcon}
-          placeholder="Re-enter Password"
+          placeholder={GlobalStrings.reEnterPassword}
           secureTextEntry
           value={confirmPassword}
           onChangeText={setConfirmPassword}
@@ -92,8 +93,8 @@ const SignupStep1Screen = () => {
 
 const styles = StyleSheet.create({
   inputGroup: {
-    gap: 16,
-    marginTop: 24,
+    gap: Spacing.m,
+    marginTop: Spacing.l,
   },
   loginLink: {
     fontFamily: Fonts.medium,

@@ -6,7 +6,8 @@ import FormInput from '@/ui/atoms/input';
 import Button from '@/ui/atoms/button';
 import AppText from '@/ui/atoms/text';
 import StepIndicator from '../components/step-indicator';
-import { Colors, Fonts } from '@/core/constants/theme';
+import { Colors, Fonts, Spacing } from '@/core/constants/theme';
+import { GlobalStrings } from '@/core/constants/strings';
 import TagIcon from '@/assets/images/tag.svg';
 import SmileIcon from '@/assets/images/smile.svg';
 import HouseIcon from '@/assets/images/house.svg';
@@ -28,14 +29,14 @@ const SignupStep2Screen = () => {
   return (
     <AuthLayout
       subHeader={<StepIndicator currentStep={2} totalSteps={4} />}
-      header="Farm Info"
+      header={GlobalStrings.farmInfo}
       footer={
         <>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AppText style={styles.backArrow}>{'\u2190'}</AppText>
           </TouchableOpacity>
           <Button
-            title="Continue"
+            title={GlobalStrings.continue}
             backgroundColor={Colors.secondary}
             onPress={handleContinue}
             style={styles.continueButton}
@@ -45,25 +46,25 @@ const SignupStep2Screen = () => {
       <View style={styles.inputGroup}>
         <FormInput
           icon={TagIcon}
-          placeholder="Business Name"
+          placeholder={GlobalStrings.businessName}
           value={businessName}
           onChangeText={setBusinessName}
         />
         <FormInput
           icon={SmileIcon}
-          placeholder="Informal Name"
+          placeholder={GlobalStrings.informalName}
           value={informalName}
           onChangeText={setInformalName}
         />
         <FormInput
           icon={HouseIcon}
-          placeholder="Street Address"
+          placeholder={GlobalStrings.streetAddress}
           value={streetAddress}
           onChangeText={setStreetAddress}
         />
         <FormInput
           icon={LocationIcon}
-          placeholder="City"
+          placeholder={GlobalStrings.city}
           value={city}
           onChangeText={setCity}
         />
@@ -76,13 +77,13 @@ const SignupStep2Screen = () => {
             activeOpacity={0.7}>
             <AppText
               style={[styles.stateText, !state && styles.statePlaceholder]}>
-              {state || 'State'}
+              {state || GlobalStrings.state}
             </AppText>
             <AppText style={styles.stateArrow}>{'\u25BE'}</AppText>
           </TouchableOpacity>
           <View style={styles.zipcodeWrapper}>
             <FormInput
-              placeholder="Enter Zipcode"
+              placeholder={GlobalStrings.enterZipcode}
               keyboardType="number-pad"
               value={zipcode}
               onChangeText={setZipcode}
@@ -96,19 +97,19 @@ const SignupStep2Screen = () => {
 
 const styles = StyleSheet.create({
   inputGroup: {
-    gap: 16,
+    gap: Spacing.m,
   },
   row: {
     flexDirection: 'row',
-    gap: 16,
+    gap: Spacing.m,
   },
   stateSelector: {
     borderRadius: 8,
     backgroundColor: 'rgba(38, 28, 18, 0.08)',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: Spacing.m,
+    paddingVertical: 12, // Leave exact non-theme values if desired, or replace via spacing if it exists but I'll stick to theme vars that matched before like 16.
     width: 120,
   },
   stateText: {
