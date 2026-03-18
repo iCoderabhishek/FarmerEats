@@ -32,7 +32,6 @@ const SplashCarouselScreen = () => {
     viewAreaCoveragePercentThreshold: 50,
   }).current;
 
-  //todo: will replace with navigation types...,
   const navigation = useNavigation<any>();
 
   const handleJoin = () => {

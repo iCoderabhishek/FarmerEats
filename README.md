@@ -1,97 +1,134 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# FarmerEats
 
-# Getting Started
+React Native 0.84 (New Architecture) mobile app for farmer onboarding, authentication, and business registration.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+[Download The App (APK)](https://drive.google.com/file/d/1xaoYkvU9xF6ydreAqcb5877fX7ZvQ7sW/view?usp=sharing)
 
-## Step 1: Start Metro
+## Installation
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```bash
+git clone git@github.com:iCoderabhishek/FarmerEats.git
+cd FarmerEats
+git checkout dev
+npm install
 ```
 
-## Step 2: Build and run your app
+Create `.env` in project root:
+ 
+```
+API_BASE_URL=https://sowlab.com/assignment
+```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Run:
 
-### Android
-
-```sh
-# Using npm
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
+Release APK:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+cd android && ./gradlew assembleRelease
 ```
 
-Then, and every time you update your native dependencies, run:
+Output: `android/app/build/outputs/apk/release/app-release.apk`
 
-```sh
-bundle exec pod install
+
+
+
+## Folder Structure Diagram
+
+![root layer](src/assets/readme/image.png)
+
+![infra layer](src/assets/readme/image-1.png)
+
+![business logic layer](src/assets/readme/image-2.png)
+
+![ui layer](src/assets/readme/image-3.png)
+
+## Folder Structure
+
+
+```
+src/
+  app/
+    navigation/           # Root, Auth, Signup navigators
+    providers/            # Redux + Navigation providers
+    store.ts              # Redux store config
+  core/
+    api/                  # Axios client with interceptors
+    constants/            # Config, endpoints, theme, US states
+    storage/              # AsyncStorage token persistence
+    utils/                # Zod validation schemas
+    types/                # Shared TypeScript types
+  flows/
+    splash-flow/          # Onboarding carousel
+    auth-flow/            # Login, forgot password, OTP, reset
+    signup-flow/          # 4-step signup + success screen
+    home-flow/            # Post-auth home screen
+  modules/
+    auth/                 # Auth slice + login/logout/reset services
+    signup/               # Signup slice + register service
+  ui/
+    atoms/                # Text, Button, Input
+    molecules/            # Toast, OTP input, Social buttons, State picker
+    layouts/              # ScreenWrapper, AuthLayout
+  assets/                 # SVG icons, images, fonts
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Tech Stack
 
-```sh
-# Using npm
-npm run ios
+| Library | Purpose |
+|---|---|
+| React Native 0.84 | UI framework, New Architecture enabled |
+| Redux Toolkit | State management |
+| React Navigation 7 | Native stack navigation |
+| Axios | HTTP client with interceptors |
+| Zod 4 | Runtime form validation |
+| AsyncStorage | Token persistence |
+| react-native-config | Environment variables |
+| react-native-document-picker | File selection (patched for RN 0.84) |
+| react-native-svg | SVG icon rendering |
 
-# OR using Yarn
-yarn ios
+## Redux Usage
+
+Two slices in `src/app/store.ts`:
+
+**auth** (`modules/auth/auth.slice.ts`): Holds `isAuthenticated`, `user`, `token`, `loading`, `error`. Drives conditional navigation in `RootNavigator` -- when `isAuthenticated` is true, the navigator renders authenticated screens; otherwise, splash/auth/signup flows.
+
+**signup** (`modules/signup/signup.slice.ts`): Accumulates form data across 4 signup steps. Each step validates locally with Zod, dispatches its portion to the slice, then navigates forward. Step 4 reads the entire slice and posts to the register API.
+
+Services (`auth.service.ts`, `signup.service.ts`) are thunks that call APIs and dispatch slice actions. Screens never call APIs directly.
+
+## API Layer
+
+Single Axios instance in `core/api/api-client.ts` with two interceptors:
+
+**Request**: Reads JWT from AsyncStorage, attaches `Authorization: Bearer <token>` to every request.
+
+**Response**: Backend returns HTTP 200 for everything. Success/failure is determined by `response.data.success`. If not true, a global error toast is shown and the promise is rejected. Screens never handle HTTP errors directly.
+
+Endpoints in `core/constants/endpoints.ts`:
+
+```
+POST /user/register        # Signup
+POST /user/login           # Login
+POST /user/verify-otp      # OTP verification
+POST /user/reset-password  # Password reset
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Token lifecycle: saved on login/register, restored on app launch (bootstrap in `RootNavigator`), cleared on logout.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Is this Codebase Scalable??
 
-## Step 3: Modify your app
+**Flow-based structure**: Each feature is a self-contained directory under `flows/`. Adding a feature means adding a new flow and registering its navigator. Existing code is untouched.
 
-Now that you have successfully run the app, let's make changes!
+**Module pattern**: Business logic lives in `modules/` with co-located slice + service + types per domain. A new domain (e.g., `orders`) gets its own module and slice added to the store.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+**Atomic UI**: Components layered as atoms, molecules, layouts. Screens compose from existing primitives without duplicating styles.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+**Centralized theme**: All colors, fonts, spacing in `theme.ts`. No inline hardcoded values. Design system changes are a single-file update.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+**Centralized API**: New endpoint = one line in `endpoints.ts` + one service function. Auth, error handling, toasts are automatic via interceptors.
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Validation**: All schemas in `schemas.ts`. New form = new Zod schema + `safeParse` call.
