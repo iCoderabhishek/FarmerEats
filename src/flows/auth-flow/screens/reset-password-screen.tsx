@@ -22,7 +22,8 @@ const ResetPasswordScreen = () => {
       header="Reset Password"
       descText="Remember your password?"
       linkText="Login"
-      onLinkPress={() => navigation.navigate('Login')}>
+      onLinkPress={() => navigation.navigate('Login')}
+    >
       <View style={styles.inputGroup}>
         <FormInput
           icon={LockIcon}

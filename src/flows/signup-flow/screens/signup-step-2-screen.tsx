@@ -18,7 +18,7 @@ const SignupStep2Screen = () => {
   const [informalName, setInformalName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [city, setCity] = useState('');
-  const [state, setState] = useState('');
+  const [state] = useState('');
   const [zipcode, setZipcode] = useState('');
 
   const handleContinue = () => {
@@ -41,7 +41,8 @@ const SignupStep2Screen = () => {
             style={styles.continueButton}
           />
         </>
-      }>
+      }
+    >
       <View style={styles.inputGroup}>
         <FormInput
           icon={TagIcon}
@@ -73,9 +74,11 @@ const SignupStep2Screen = () => {
             onPress={() => {
               // TODO: open state picker
             }}
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+          >
             <AppText
-              style={[styles.stateText, !state && styles.statePlaceholder]}>
+              style={[styles.stateText, !state && styles.statePlaceholder]}
+            >
               {state || 'State'}
             </AppText>
             <AppText style={styles.stateArrow}>{'\u25BE'}</AppText>

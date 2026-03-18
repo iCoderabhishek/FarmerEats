@@ -1,5 +1,5 @@
-import { Colors, Fonts } from "@/core/constants/theme";
-import { Dimensions, StyleSheet } from "react-native";
+import { Colors, Fonts } from '@/core/constants/theme';
+import { Dimensions, StyleSheet } from 'react-native';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({

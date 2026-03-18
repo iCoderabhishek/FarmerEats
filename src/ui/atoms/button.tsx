@@ -24,7 +24,8 @@ const Button: React.FC<ButtonProps> = ({
     <TouchableOpacity
       style={[styles.container, { backgroundColor }, style]}
       activeOpacity={0.8}
-      {...props}>
+      {...props}
+    >
       <AppText style={[styles.text, { color: textColor }]}>{title}</AppText>
     </TouchableOpacity>
   );

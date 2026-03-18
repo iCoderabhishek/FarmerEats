@@ -27,14 +27,13 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 5, value, onChange }) => {
       />
       <Pressable
         style={styles.boxRow}
-        onPress={() => inputRef.current?.focus()}>
+        onPress={() => inputRef.current?.focus()}
+      >
         {Array.from({ length }, (_, index) => (
           <View
             key={index}
-            style={[
-              styles.box,
-              value.length === index && styles.activeBox,
-            ]}>
+            style={[styles.box, value.length === index && styles.activeBox]}
+          >
             <Text style={styles.boxText}>{value[index] || ''}</Text>
           </View>
         ))}

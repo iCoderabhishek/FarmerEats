@@ -20,7 +20,8 @@ const ForgotPasswordScreen = () => {
       header="Forgot Password?"
       descText="Remember your password?"
       linkText="Login"
-      onLinkPress={() => navigation.navigate('Login')}>
+      onLinkPress={() => navigation.navigate('Login')}
+    >
       <FormInput
         icon={PhoneIcon}
         placeholder="Phone Number"

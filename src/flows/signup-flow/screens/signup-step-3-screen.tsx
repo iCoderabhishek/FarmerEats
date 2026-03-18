@@ -35,7 +35,8 @@ const SignupStep3Screen = () => {
             style={styles.continueButton}
           />
         </>
-      }>
+      }
+    >
       <AppText style={styles.description}>
         Attached proof of Department of Agriculture registrations i.e. Florida
         Fresh, USDA Approved, USDA Organic

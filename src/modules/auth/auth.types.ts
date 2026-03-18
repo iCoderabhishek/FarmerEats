@@ -1,4 +1,4 @@
-import { User } from "@/core/types/user";
+import { User } from '@/core/types/user';
 
 export interface AuthState {
   isAuthenticated: boolean;

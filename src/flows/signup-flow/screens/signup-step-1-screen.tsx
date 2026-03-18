@@ -45,7 +45,8 @@ const SignupStep1Screen = () => {
             style={styles.continueButton}
           />
         </>
-      }>
+      }
+    >
       <SocialLoginButtons label="or signup with" labelPosition="bottom" />
 
       <View style={styles.inputGroup}>

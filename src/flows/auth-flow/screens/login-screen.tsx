@@ -23,7 +23,8 @@ const LoginScreen = () => {
       header="Welcome back!"
       descText="New here?"
       linkText="Create account"
-      onLinkPress={() => navigation.navigate('SignupFlow')}>
+      onLinkPress={() => navigation.navigate('SignupFlow')}
+    >
       <View style={styles.inputGroup}>
         <FormInput
           icon={EmailIcon}

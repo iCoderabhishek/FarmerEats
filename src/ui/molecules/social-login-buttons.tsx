@@ -26,7 +26,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
       style={[
         styles.orText,
         labelPosition === 'top' ? styles.labelTop : styles.labelBottom,
-      ]}>
+      ]}
+    >
       {label}
     </AppText>
   );
@@ -38,23 +39,27 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         style={[
           styles.buttonRow,
           labelPosition === 'bottom' && styles.buttonRowFirst,
-        ]}>
+        ]}
+      >
         <TouchableOpacity
           style={styles.socialButton}
           onPress={onGooglePress}
-          activeOpacity={0.7}>
+          activeOpacity={0.7}
+        >
           <GoogleIcon width={24} height={24} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.socialButton}
           onPress={onApplePress}
-          activeOpacity={0.7}>
+          activeOpacity={0.7}
+        >
           <AppleIcon width={24} height={24} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.socialButton}
           onPress={onFacebookPress}
-          activeOpacity={0.7}>
+          activeOpacity={0.7}
+        >
           <FacebookIcon width={24} height={24} />
         </TouchableOpacity>
       </View>

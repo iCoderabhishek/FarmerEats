@@ -24,7 +24,8 @@ const VerifyOtpScreen = () => {
       header="Verify OTP"
       descText="Remember your password?"
       linkText="Login"
-      onLinkPress={() => navigation.navigate('Login')}>
+      onLinkPress={() => navigation.navigate('Login')}
+    >
       <OtpInput value={otp} onChange={setOtp} />
 
       <Button
@@ -36,7 +37,8 @@ const VerifyOtpScreen = () => {
 
       <TouchableOpacity
         onPress={handleResendCode}
-        style={styles.resendContainer}>
+        style={styles.resendContainer}
+      >
         <AppText style={styles.resendText}>Resend Code</AppText>
       </TouchableOpacity>
     </AuthLayout>

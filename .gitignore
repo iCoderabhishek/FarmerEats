@@ -78,3 +78,9 @@ yarn-error.log
 # envs
 .env/*
 .env.local
+
+#configs
+.vscode
+.example
+.claude
+.extension-recomendation

@@ -35,21 +35,21 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
           { paddingTop: insets.top + 20 },
         ]}
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <AppText style={styles.appTitle}>FarmerEats</AppText>
 
         {subHeader && <View style={styles.subHeader}>{subHeader}</View>}
 
         <AppText
-          style={[styles.header, subHeader ? styles.headerWithSub : null]}>
+          style={[styles.header, subHeader ? styles.headerWithSub : null]}
+        >
           {header}
         </AppText>
 
         {(descText || linkText) && (
           <View style={styles.descRow}>
-            {descText && (
-              <AppText style={styles.descText}>{descText} </AppText>
-            )}
+            {descText && <AppText style={styles.descText}>{descText} </AppText>}
             {linkText && (
               <TouchableOpacity onPress={onLinkPress}>
                 <AppText style={styles.linkText}>{linkText}</AppText>
@@ -61,11 +61,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         <View style={styles.formArea}>{children}</View>
       </ScrollView>
 
-      {footer && (
-        <View style={[styles.footer, { bottom: 54 }]}>
-          {footer}
-        </View>
-      )}
+      {footer && <View style={[styles.footer]}>{footer}</View>}
     </ScreenWrapper>
   );
 };
@@ -120,6 +116,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
+    bottom: 54,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
