@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Keyboard,
-  Platform,
-} from 'react-native';
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Fonts } from '@/core/constants/theme';
 import ScreenWrapper from './screen-wrapper';
@@ -32,26 +25,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
   children,
 }) => {
   const insets = useSafeAreaInsets();
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-
-  useEffect(() => {
-    const showEvent =
-      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
-    const hideEvent =
-      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
-
-    const showSub = Keyboard.addListener(showEvent, () =>
-      setKeyboardVisible(true),
-    );
-    const hideSub = Keyboard.addListener(hideEvent, () =>
-      setKeyboardVisible(false),
-    );
-
-    return () => {
-      showSub.remove();
-      hideSub.remove();
-    };
-  }, []);
 
   return (
     <ScreenWrapper>
@@ -59,10 +32,14 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         style={styles.scrollView}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + 20 },
+          {
+            paddingTop: insets.top + 20,
+            paddingBottom: insets.bottom + 20,
+          },
         ]}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustKeyboardInsets
       >
         <AppText style={styles.appTitle}>FarmerEats</AppText>
 
@@ -86,13 +63,9 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         )}
 
         <View style={styles.formArea}>{children}</View>
-      </ScrollView>
 
-      {footer && !keyboardVisible && (
-        <View style={[styles.footer, { bottom: insets.bottom + 20 }]}>
-          {footer}
-        </View>
-      )}
+        {footer && <View style={styles.footer}>{footer}</View>}
+      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -103,7 +76,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 30,
-    paddingBottom: 40,
+    flexGrow: 1,
   },
   appTitle: {
     fontFamily: Fonts.regular,
@@ -144,13 +117,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   footer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    marginTop: 'auto',
+    paddingTop: 24,
   },
 });
 

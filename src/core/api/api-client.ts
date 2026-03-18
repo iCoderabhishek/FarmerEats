@@ -26,7 +26,7 @@ apiClient.interceptors.response.use(
   response => {
     const data = response.data;
 
-    if (data && data.success !== undefined && data.success !== 'true') {
+    if (data && data.success !== undefined && String(data.success) !== 'true') {
       const message = data.message ?? 'Something went wrong';
       showToast({ type: 'error', message });
       return Promise.reject(new Error(message));

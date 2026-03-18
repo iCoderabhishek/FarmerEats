@@ -9,6 +9,7 @@ import { Colors, Fonts } from '@/core/constants/theme';
 import { AppDispatch, RootState } from '@/app/store';
 import { loginSuccess } from '@/modules/auth/auth.slice';
 import { resetSignup } from '@/modules/signup/signup.slice';
+import { getToken } from '@/core/storage/token-storage';
 import CheckIcon from '@/assets/images/check.svg';
 
 const SignupSuccessScreen = () => {
@@ -16,7 +17,8 @@ const SignupSuccessScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const signup = useSelector((state: RootState) => state.signup);
 
-  const handleGotIt = () => {
+  const handleGotIt = async () => {
+    const token = (await getToken()) ?? '';
     dispatch(
       loginSuccess({
         user: {
@@ -32,7 +34,7 @@ const SignupSuccessScreen = () => {
           mediaUri: signup.mediaUri,
           businessHours: signup.businessHours,
         },
-        token: '',
+        token,
       }),
     );
     dispatch(resetSignup());

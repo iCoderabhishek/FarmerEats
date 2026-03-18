@@ -81,6 +81,9 @@ yarn-error.log
 .env/*
 .env.local
 
+# Signing secrets
+android/gradle.properties
+
 #configs
 .vscode
 .example

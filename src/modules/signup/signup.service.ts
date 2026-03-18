@@ -65,7 +65,7 @@ export const registerUser =
 
       const { data } = await apiClient.post(ENDPOINTS.REGISTER, body);
 
-      if (data.success === 'true') {
+      if (String(data.success) === 'true') {
         await saveToken(data.token);
       }
 

@@ -1,8 +1,8 @@
 import apiClient from '@/core/api/api-client';
 import { ENDPOINTS } from '@/core/constants/endpoints';
-import { saveToken } from '@/core/storage/token-storage';
+import { saveToken, removeToken } from '@/core/storage/token-storage';
 import { AppDispatch } from '@/app/store';
-import { setLoading, loginSuccess, loginFailure } from './auth.slice';
+import { setLoading, loginSuccess, loginFailure, logout } from './auth.slice';
 
 interface LoginPayload {
   email: string;
@@ -36,7 +36,7 @@ export const loginUser =
       };
       const { data } = await apiClient.post(ENDPOINTS.LOGIN, body);
 
-      if (data.success === 'true') {
+      if (String(data.success) === 'true') {
         await saveToken(data.token);
         dispatch(
           loginSuccess({
@@ -62,4 +62,9 @@ export const verifyOtp = async (payload: VerifyOtpPayload) => {
 export const resetPassword = async (payload: ResetPasswordPayload) => {
   const { data } = await apiClient.post(ENDPOINTS.RESET_PASSWORD, payload);
   return data;
+};
+
+export const logoutUser = () => async (dispatch: AppDispatch) => {
+  await removeToken();
+  dispatch(logout());
 };
