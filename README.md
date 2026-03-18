@@ -5,7 +5,7 @@ React Native 0.84 (New Architecture) mobile app for farmer onboarding, authentic
 [Download The App (APK)](https://drive.google.com/file/d/1xaoYkvU9xF6ydreAqcb5877fX7ZvQ7sW/view?usp=sharing)
 
 
-## DEMO
+## DEMO (click to watch the demo)
 
 [![Watch the video](https://img.youtube.com/vi/vsuzuTOAN4s/maxresdefault.jpg)](https://www.youtube.com/watch?v=vsuzuTOAN4s)
 
