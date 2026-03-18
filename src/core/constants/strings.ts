@@ -1,0 +1,30 @@
+export const GlobalStrings = {
+    login: 'Login',
+    continue: 'Continue',
+    signup: 'Signup',
+    welcome: 'Welcome!',
+    orSignupWith: 'or signup with',
+    fullName: 'Full Name',
+    emailAddress: 'Email Address',
+    phoneNumber: 'Phone Number',
+    password: 'Password',
+    reEnterPassword: 'Re-enter Password',
+    farmInfo: 'Farm Info',
+    businessName: 'Business Name',
+    informalName: 'Informal Name',
+    streetAddress: 'Street Address',
+    city: 'City',
+    state: 'State',
+    enterZipcode: 'Enter Zipcode',
+    verification: 'Verification',
+    attachedProofDesc:
+        'Attached proof of Department of Agriculture registrations i.e. Florida Fresh, USDA Approved, USDA Organic',
+    attachProof: 'Attach proof of registration',
+    businessHours: 'Business Hours',
+    businessHoursDesc:
+        'Choose the hours your farm is open for pickups. This will allow customers to order deliveries.',
+    successTitle: "You're all done!",
+    successDesc:
+        'Hang tight! We are currently reviewing your account and will follow up with you in 2-3 business days. In the meantime, you can setup your inventory.',
+    gotIt: 'Got it!',
+};
