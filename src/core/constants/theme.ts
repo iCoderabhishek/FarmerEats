@@ -7,6 +7,13 @@ export const Colors = {
   dark: '#261C12',
   background: '#FFFFFF',
 
+  // Semantic colors
+  textMuted: 'rgba(0, 0, 0, 0.3)',
+  inputBackground: 'rgba(38, 28, 18, 0.08)',
+  placeholder: 'rgba(38, 28, 18, 0.3)',
+  borderLight: 'rgba(38, 28, 18, 0.15)',
+  borderMuted: 'rgba(0, 0, 0, 0.08)',
+
   // Onboarding backgrounds
   onboarding1Bg: '#72B579',
   onboarding2Bg: '#D5715B',

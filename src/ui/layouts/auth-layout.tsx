@@ -1,5 +1,12 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Keyboard,
+  Platform,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Fonts } from '@/core/constants/theme';
 import ScreenWrapper from './screen-wrapper';
@@ -25,6 +32,26 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
   children,
 }) => {
   const insets = useSafeAreaInsets();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
+    const hideEvent =
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+
+    const showSub = Keyboard.addListener(showEvent, () =>
+      setKeyboardVisible(true),
+    );
+    const hideSub = Keyboard.addListener(hideEvent, () =>
+      setKeyboardVisible(false),
+    );
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -61,7 +88,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         <View style={styles.formArea}>{children}</View>
       </ScrollView>
 
-      {footer && <View style={[styles.footer]}>{footer}</View>}
+      {footer && !keyboardVisible && (
+        <View style={[styles.footer, { bottom: insets.bottom + 20 }]}>
+          {footer}
+        </View>
+      )}
     </ScreenWrapper>
   );
 };
@@ -96,7 +127,7 @@ const styles = StyleSheet.create({
   descText: {
     fontFamily: Fonts.medium,
     fontSize: 14,
-    color: 'rgba(0, 0, 0, 0.3)',
+    color: Colors.textMuted,
   },
   linkText: {
     fontFamily: Fonts.medium,
@@ -116,7 +147,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 54,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

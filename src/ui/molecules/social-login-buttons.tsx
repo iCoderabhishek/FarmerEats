@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   orText: {
     fontFamily: Fonts.medium,
     fontSize: 10,
-    color: 'rgba(0, 0, 0, 0.3)',
+    color: Colors.textMuted,
   },
   labelTop: {
     marginTop: 32,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     height: 52,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.08)',
+    borderColor: Colors.borderMuted,
     backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',

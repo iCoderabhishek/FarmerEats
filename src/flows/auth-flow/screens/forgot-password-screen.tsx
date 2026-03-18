@@ -28,6 +28,8 @@ const ForgotPasswordScreen = () => {
         keyboardType="phone-pad"
         value={phoneNumber}
         onChangeText={setPhoneNumber}
+        returnKeyType="done"
+        onSubmitEditing={handleSendCode}
       />
 
       <Button

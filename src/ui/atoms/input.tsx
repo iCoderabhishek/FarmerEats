@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   View,
   TextInput,
@@ -17,42 +17,48 @@ interface FormInputProps extends TextInputProps {
   onRightTextPress?: () => void;
 }
 
-const FormInput: React.FC<FormInputProps> = ({
-  icon: Icon,
-  rightText,
-  rightTextColor = Colors.secondary,
-  onRightTextPress,
-  style,
-  ...props
-}) => {
-  return (
-    <View style={styles.container}>
-      {Icon && (
-        <View style={styles.iconWrapper}>
-          <Icon width={15} height={15} />
-        </View>
-      )}
-      <TextInput
-        style={[styles.input, style]}
-        placeholderTextColor="rgba(38, 28, 18, 0.3)"
-        {...props}
-      />
-      {rightText && (
-        <TouchableOpacity onPress={onRightTextPress} hitSlop={8}>
-          <AppText style={[styles.rightText, { color: rightTextColor }]}>
-            {rightText}
-          </AppText>
-        </TouchableOpacity>
-      )}
-    </View>
-  );
-};
+const FormInput = forwardRef<TextInput, FormInputProps>(
+  (
+    {
+      icon: Icon,
+      rightText,
+      rightTextColor = Colors.secondary,
+      onRightTextPress,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <View style={styles.container}>
+        {Icon && (
+          <View style={styles.iconWrapper}>
+            <Icon width={15} height={15} />
+          </View>
+        )}
+        <TextInput
+          ref={ref}
+          style={[styles.input, style]}
+          placeholderTextColor={Colors.placeholder}
+          {...props}
+        />
+        {rightText && (
+          <TouchableOpacity onPress={onRightTextPress} hitSlop={8}>
+            <AppText style={[styles.rightText, { color: rightTextColor }]}>
+              {rightText}
+            </AppText>
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
     height: 48,
     borderRadius: 8,
-    backgroundColor: 'rgba(38, 28, 18, 0.08)',
+    backgroundColor: Colors.inputBackground,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,

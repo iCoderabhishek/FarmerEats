@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Fonts } from '@/core/constants/theme';
+import { Colors, Fonts } from '@/core/constants/theme';
 import AppText from '@/ui/atoms/text';
 
 interface StepIndicatorProps {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: Fonts.medium,
     fontSize: 14,
-    color: 'rgba(0, 0, 0, 0.3)',
+    color: Colors.textMuted,
     textAlign: 'left',
   },
 });

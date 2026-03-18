@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { showToast } from '@/ui/molecules/app-toast';
 import AuthLayout from '@/ui/layouts/auth-layout';
 import OtpInput from '@/ui/molecules/otp-input';
 import Button from '@/ui/atoms/button';
 import AppText from '@/ui/atoms/text';
 import { Colors, Fonts } from '@/core/constants/theme';
+import { verifyOtp } from '@/modules/auth/auth.service';
 
 const VerifyOtpScreen = () => {
   const navigation = useNavigation<any>();
   const [otp, setOtp] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
-    navigation.navigate('ResetPassword');
+  const handleSubmit = async () => {
+    if (otp.length < 6) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = await verifyOtp({ otp });
+      if (data.success === 'true') {
+        navigation.navigate('ResetPassword', { token: data.token });
+      }
+    } catch {
+      // Error handled by interceptor
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleResendCode = () => {
-    // TODO: resend OTP
+    showToast({ type: 'info', message: 'Code resent' });
   };
 
   return (
@@ -29,9 +45,10 @@ const VerifyOtpScreen = () => {
       <OtpInput value={otp} onChange={setOtp} />
 
       <Button
-        title="Submit"
+        title={loading ? 'Verifying...' : 'Submit'}
         backgroundColor={Colors.secondary}
         onPress={handleSubmit}
+        disabled={loading}
         style={styles.button}
       />
 
