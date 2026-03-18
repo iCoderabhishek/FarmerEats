@@ -32,10 +32,14 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         style={styles.scrollView}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + 20 },
+          {
+            paddingTop: insets.top + 20,
+            paddingBottom: insets.bottom + 20,
+          },
         ]}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustKeyboardInsets
       >
         <AppText style={styles.appTitle}>FarmerEats</AppText>
 
@@ -59,9 +63,9 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         )}
 
         <View style={styles.formArea}>{children}</View>
-      </ScrollView>
 
-      {footer && <View style={[styles.footer]}>{footer}</View>}
+        {footer && <View style={styles.footer}>{footer}</View>}
+      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 30,
-    paddingBottom: 40,
+    flexGrow: 1,
   },
   appTitle: {
     fontFamily: Fonts.regular,
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   descText: {
     fontFamily: Fonts.medium,
     fontSize: 14,
-    color: 'rgba(0, 0, 0, 0.3)',
+    color: Colors.textMuted,
   },
   linkText: {
     fontFamily: Fonts.medium,
@@ -113,14 +117,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   footer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 54,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    marginTop: 'auto',
+    paddingTop: 24,
   },
 });
 

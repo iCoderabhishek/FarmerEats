@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 import { store } from '@/app/store';
 import { RootNavigator } from '@/app/navigation/root-navigator';
+import AppToast from '@/ui/molecules/app-toast';
 
 type Props = {
   children?: React.ReactNode;
@@ -16,7 +16,7 @@ export const AppProviders = ({ children }: Props) => {
         <RootNavigator />
         {children}
       </NavigationContainer>
-      <Toast />
+      <AppToast />
     </Provider>
   );
 };

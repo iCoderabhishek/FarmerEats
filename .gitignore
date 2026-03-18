@@ -76,8 +76,13 @@ yarn-error.log
 
 
 # envs
+.env
+.env.*
 .env/*
 .env.local
+
+# Signing secrets
+android/gradle.properties
 
 #configs
 .vscode

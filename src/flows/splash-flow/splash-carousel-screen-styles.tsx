@@ -1,6 +1,6 @@
 import { Colors, Fonts } from '@/core/constants/theme';
 import { Dimensions, StyleSheet } from 'react-native';
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   slide: {
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     width: SCREEN_WIDTH,
-    height: 423,
+    height: SCREEN_HEIGHT * 0.5,
     justifyContent: 'flex-end',
   },
   bottomCard: {
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 422,
+    height: SCREEN_HEIGHT * 0.5,
     backgroundColor: Colors.white,
     borderTopLeftRadius: 52,
     borderTopRightRadius: 52,

@@ -14,6 +14,7 @@ const initialState: SignupState = {
   informalName: '',
   streetAddress: '',
   city: '',
+  state: '',
   zipcode: '',
   // Step 3 - Verification media
   mediaUri: null,
@@ -58,6 +59,7 @@ const signupSlice = createSlice({
         informalName: string;
         streetAddress: string;
         city: string;
+        state: string;
         zipcode: string;
       }>,
     ) {

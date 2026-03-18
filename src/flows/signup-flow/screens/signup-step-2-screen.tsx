@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { showToast } from '@/ui/molecules/app-toast';
 import AuthLayout from '@/ui/layouts/auth-layout';
 import FormInput from '@/ui/atoms/input';
 import Button from '@/ui/atoms/button';
 import AppText from '@/ui/atoms/text';
+import StatePicker from '@/ui/molecules/state-picker';
 import StepIndicator from '../components/step-indicator';
-import { Colors, Fonts } from '@/core/constants/theme';
+import { Colors } from '@/core/constants/theme';
+import { AppDispatch } from '@/app/store';
+import { setFarmInfo } from '@/modules/signup/signup.slice';
+import { signupStep2Schema } from '@/core/utils/schemas';
 import TagIcon from '@/assets/images/tag.svg';
 import SmileIcon from '@/assets/images/smile.svg';
 import HouseIcon from '@/assets/images/house.svg';
@@ -14,14 +20,50 @@ import LocationIcon from '@/assets/images/location.svg';
 
 const SignupStep2Screen = () => {
   const navigation = useNavigation<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const [businessName, setBusinessName] = useState('');
   const [informalName, setInformalName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [city, setCity] = useState('');
-  const [state] = useState('');
+  const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
 
+  const informalRef = useRef<TextInput>(null);
+  const streetRef = useRef<TextInput>(null);
+  const cityRef = useRef<TextInput>(null);
+  const zipcodeRef = useRef<TextInput>(null);
+
+  const isFormFilled =
+    businessName.trim() &&
+    informalName.trim() &&
+    streetAddress.trim() &&
+    city.trim() &&
+    state &&
+    zipcode.trim();
+
   const handleContinue = () => {
+    const result = signupStep2Schema.safeParse({
+      businessName,
+      informalName,
+      streetAddress,
+      city,
+      state,
+      zipcode,
+    });
+    if (!result.success) {
+      showToast({ type: 'error', message: result.error.issues[0].message });
+      return;
+    }
+    dispatch(
+      setFarmInfo({
+        businessName,
+        informalName,
+        streetAddress,
+        city,
+        state,
+        zipcode,
+      }),
+    );
     navigation.navigate('Step3');
   };
 
@@ -38,7 +80,11 @@ const SignupStep2Screen = () => {
             title="Continue"
             backgroundColor={Colors.secondary}
             onPress={handleContinue}
-            style={styles.continueButton}
+            disabled={!isFormFilled}
+            style={[
+              styles.continueButton,
+              !isFormFilled && styles.buttonDisabled,
+            ]}
           />
         </>
       }
@@ -49,46 +95,47 @@ const SignupStep2Screen = () => {
           placeholder="Business Name"
           value={businessName}
           onChangeText={setBusinessName}
+          returnKeyType="next"
+          onSubmitEditing={() => informalRef.current?.focus()}
         />
         <FormInput
+          ref={informalRef}
           icon={SmileIcon}
           placeholder="Informal Name"
           value={informalName}
           onChangeText={setInformalName}
+          returnKeyType="next"
+          onSubmitEditing={() => streetRef.current?.focus()}
         />
         <FormInput
+          ref={streetRef}
           icon={HouseIcon}
           placeholder="Street Address"
           value={streetAddress}
           onChangeText={setStreetAddress}
+          returnKeyType="next"
+          onSubmitEditing={() => cityRef.current?.focus()}
         />
         <FormInput
+          ref={cityRef}
           icon={LocationIcon}
           placeholder="City"
           value={city}
           onChangeText={setCity}
+          returnKeyType="next"
+          onSubmitEditing={() => zipcodeRef.current?.focus()}
         />
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.stateSelector}
-            onPress={() => {
-              // TODO: open state picker
-            }}
-            activeOpacity={0.7}
-          >
-            <AppText
-              style={[styles.stateText, !state && styles.statePlaceholder]}
-            >
-              {state || 'State'}
-            </AppText>
-            <AppText style={styles.stateArrow}>{'\u25BE'}</AppText>
-          </TouchableOpacity>
+          <StatePicker value={state} onSelect={setState} />
           <View style={styles.zipcodeWrapper}>
             <FormInput
+              ref={zipcodeRef}
               placeholder="Enter Zipcode"
               keyboardType="number-pad"
               value={zipcode}
               onChangeText={setZipcode}
+              returnKeyType="done"
+              onSubmitEditing={handleContinue}
             />
           </View>
         </View>
@@ -105,37 +152,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
   },
-  stateSelector: {
-    borderRadius: 8,
-    backgroundColor: 'rgba(38, 28, 18, 0.08)',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    width: 120,
-  },
-  stateText: {
-    fontFamily: Fonts.regular,
-    fontSize: 14,
-    color: Colors.dark,
-    flex: 1,
-  },
-  statePlaceholder: {
-    color: 'rgba(38, 28, 18, 0.3)',
-  },
-  stateArrow: {
-    fontSize: 14,
-    color: Colors.dark,
-  },
   zipcodeWrapper: {
     flex: 1,
   },
   backArrow: {
-    fontSize: 24,
+    width: 26,
+    height: 18,
+    fontSize: 26,
     color: Colors.dark,
+    lineHeight: 18,
   },
   continueButton: {
     width: 180,
+  },
+  buttonDisabled: {
+    opacity: 0.5,
   },
 });
 

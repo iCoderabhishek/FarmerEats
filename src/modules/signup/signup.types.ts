@@ -10,6 +10,7 @@ export interface SignupState {
   informalName: string;
   streetAddress: string;
   city: string;
+  state: string;
   zipcode: string;
   mediaUri: string | null;
   businessHours: BusinessHour[];
