@@ -2,7 +2,7 @@
 
 React Native 0.84 (New Architecture) mobile app for farmer onboarding, authentication, and business registration.
 
-[Download The App (APK)](https://drive.google.com/file/d/1xaoYkvU9xF6ydreAqcb5877fX7ZvQ7sW/view?usp=sharing)
+[Download The App (APK)](https://drive.google.com/drive/folders/1Uh4ZDEZ1jb6XSTujoyJsdJGx8T3XAczf?usp=sharing)
 
 
 ## DEMO (click to watch the demo)
